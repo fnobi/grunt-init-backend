@@ -1,3 +1,5 @@
+var shellLines = require('shell_lines');
+
 exports.description = 'web app backend template (express + mongoose + socket.io)';
 
 // Template-specific notes to be displayed before question prompts.
@@ -33,8 +35,6 @@ exports.template = function (grunt, init, done) {
         // Files to copy (and process).
         var files = init.filesToCopy(props);
 
-        init.boolProps(props);
-
         var pkg = {
             name: props.name,
             description: props.description,
@@ -54,21 +54,6 @@ exports.template = function (grunt, init, done) {
             }
         };
 
-        // if (!props.with_test) {
-        //     init.escapeFiles('test/*.*', files);
-        //     delete pkg.devDependencies['grunt-mocha-html'];
-        //     delete pkg.devDependencies['grunt-mocha-phantomjs'];
-        //     delete pkg.devDependencies['chai'];
-        //     delete pkg.devDependencies['mocha'];
-        // }
-        // 
-        // if (!props.with_ejs) {
-        //     init.escapeFiles('src/ejs/**/*.*', files);
-        //     delete pkg.devDependencies['grunt-simple-ejs'];
-        // } else {
-        //     init.escapeFiles('index.html', files);
-        // }
-
         props.template_name = 'backend';
         props.project_path = process.cwd();
         props.pkg = pkg;
@@ -79,8 +64,10 @@ exports.template = function (grunt, init, done) {
         // write package.json
         init.writePackageJSON('package.json', pkg);
 
-        // All done!
-        done();
+        // npm install & bower install
+        shellLines([{
+            command: 'npm install',
+            message: 'Installing npm dependencies'
+        }], done);
     });
 };
-

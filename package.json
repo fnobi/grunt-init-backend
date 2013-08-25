@@ -1,0 +1,21 @@
+{
+  "name": "grunt-init-backend",
+  "version": "0.0.0",
+  "description": "grunt template for express server with mongoose and socket.io.",
+  "main": "template.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fnobi/grunt-init-backend"
+  },
+  "keywords": [
+    "grunttemplate"
+  ],
+  "author": "Fujisawa Shin",
+  "license": "BSD",
+  "gitHead": "62fa337b9132e27585af81fa43194be125e83c01",
+  "dependencies": {
+    "shell_lines": "~0.1.2"
+  }
+}
