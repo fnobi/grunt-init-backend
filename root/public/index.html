@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>gokaku</title>
+<link rel="stylesheet" href="/css/styles.css" />
+<link rel="apple-touch-icon" href="/img/gokaku.png"/>
+</head>
+<body>
+
+<div id="wrap">
+<section id="cont-receive" class="cont">
+<h1>receive</h1>
+<form id="form-receive">
+<label>
+<input id="input-receive-code" type="text" name="code" />
+</label>
+<input type="submit" value="receive" />
+<!-- /#form-receive --></form>
+<!-- /#cont-receive --></section>
+
+<section id="cont-send" class="cont">
+<h1>send</h1>
+<form id="form-send">
+<p id="box-send-url">
+<input id="input-send-url" type="text" name="url" value="http://gokaku.fnobi.com" />
+<input id="input-send-submit" type="submit" value="send" />
+<!-- /#box-send-url --></p>
+
+<!-- <p> -->
+<!-- <input type="hidden" id="input-send-code" /> -->
+<!-- </p> -->
+
+<!-- /#form-send --></form>
+<!-- /#cont-receive --></section>
+
+<div id="controller">
+<ul>
+<li><a id="receive-btn" href="#receive" class="entypo-login"><span>receive</span></a></li>
+<li><a id="send-btn" href="#send" class="entypo-logout"><span>send</span></a></li>
+</ul>
+<!-- /#controller --></div>
+
+<!-- /#wrap --></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/GokakuMap.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
+
+
