@@ -1,3 +1,5 @@
 {
-  "models/Model.js": "models/{%= main_model %}.js"
+  "models/Model.js": "models/{%= main_model_class %}.js",
+  "routes/model.js": "routes/{%= main_model %}.js",
+  "test/model-test.js": "test/{%= main_model %}-test.js"
 }
