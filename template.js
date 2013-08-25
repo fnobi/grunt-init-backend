@@ -38,19 +38,18 @@ exports.template = function (grunt, init, done) {
         var pkg = {
             name: props.name,
             description: props.description,
-            version: '0.0.0',
-            scripts: { },
-            engines: {
-                node: '>=0.8.0 <0.9.1'
+            scripts: {
+                test: 'NODE_ENV=test mocha',
+                start: 'node server'
             },
             dependencies: {
                 "config": "~0.4.25",
                 "mongoose": "~3.6.11",
                 "async": "~0.2.8",
+                "ejs": "~0.8.4",
                 'chai': '~1.6.1',
                 "express": "~3.3.4",
                 "socket.io": "~0.9.16"
-
             }
         };
 
