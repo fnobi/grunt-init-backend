@@ -19,6 +19,7 @@ exports.template = function (grunt, init, done) {
     init.process( {}, [
         init.prompt('name'),
         init.prompt('description'),
+        init.prompt('version'),
         {
             name: 'port',
             message: 'port number used by express server.',
@@ -40,6 +41,7 @@ exports.template = function (grunt, init, done) {
         var pkg = {
             name: props.name,
             description: props.description,
+            version: props.version,
             scripts: {
                 test: 'NODE_ENV=test mocha',
                 start: 'node server'
