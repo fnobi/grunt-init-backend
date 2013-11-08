@@ -29,7 +29,7 @@ exports.template = function (grunt, init, done) {
         {
             name: 'main_model',
             message: 'model used mainly',
-            default: 'User',
+            default: 'Item',
             validator: new RegExp('^[A-Z][a-z]+$')
         }
     ], function(err, props) {
