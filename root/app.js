@@ -1,21 +1,28 @@
-var express = require('express'),
-    path = require('path'),
-    config = require('config'),
+var express = require('express');
+var path = require('path');
+var config = require('config');
 
-    routes = require('./routes'),
-    app = express();
+var routes = require('./routes');
+var app = express();
 
 
-// all environments setting
+// =======================================================
+//  all environments setting
+// =======================================================
+
 app.set('port', process.env.PORT || config.port);
 app.set('view engine', 'ejs');
 app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// development only
+// =======================================================
+//  development only setting
+// =======================================================
+
 if ('development' == app.get('env')) {
     app.use(express.favicon());
     app.use(express.logger('dev'));
@@ -23,7 +30,10 @@ if ('development' == app.get('env')) {
 }
 
 
-// routing
+// =======================================================
+//  routing
+// =======================================================
+
 app.get('/', routes.index);
 
 app.get('/{%= main_model_instance %}/:name', routes.{%= main_model_instance %}.get);
