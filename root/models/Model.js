@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var {%= main_model %} = new Schema({
-    id: {
-        type: Number,
+    name: {
+        type: String,
         index: { unique: true }
     }
 });
