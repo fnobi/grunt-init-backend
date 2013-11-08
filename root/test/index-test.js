@@ -1,8 +1,8 @@
 var assert = require('chai').assert,
-    TestApp = require('../lib/test/TestApp');
+    TestApp = require(__dirname + '/../lib/test/TestApp');
 
 describe('app', function () {
-    var app = new TestApp(require('../app'));
+    var app = new TestApp(require(__dirname + '/../app'));
 
     it('get /', function (done) {
         app.request({ path: '/' }, function (err, res, body) {

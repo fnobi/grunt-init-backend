@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var config = require('config');
 
-var routes = require('./routes');
+var routes = require(__dirname + '/../routes');
 var app = express();
 
 

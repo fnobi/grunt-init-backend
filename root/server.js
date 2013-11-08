@@ -2,7 +2,7 @@ var http = require('http'),
     config = require('config'),
     mongoose = require('mongoose'),
 
-    app = require('./app');
+    app = require(__dirname + '/app');
 
 
 // create server
