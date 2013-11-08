@@ -5,9 +5,9 @@ module.exports = {
         var {%= main_model_instance %} = {%= main_model %}.find({
             id: req.param('id')
         });
-        req.json(200, {%= main_model_instance %});
+        res.json(200, {%= main_model_instance %});
     },
     post: function (req, res) {
-        req.json(200, {});
+        res.json(200, {});
     }
 };
