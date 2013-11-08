@@ -1,3 +1,4 @@
+var config = require('config');
 var {%= main_model %} = require(__dirname + '/../models/{%= main_model %}');
 
 module.exports = {
