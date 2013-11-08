@@ -26,8 +26,8 @@ if ('development' == app.get('env')) {
 // routing
 app.get('/', routes.index);
 
-app.get ('/{%= main_model %}', routes.{%= main_model %}.get );
-app.post('/{%= main_model %}', routes.{%= main_model %}.post);
+app.get ('/{%= main_model_instance %}', routes.{%= main_model_instance %}.get );
+app.post('/{%= main_model_instance %}', routes.{%= main_model_instance %}.post);
 
 
 module.exports = app;

@@ -3,7 +3,7 @@ var assert = require('chai').assert,
     mongoose = require('mongoose'),
     config = require('config'),
 
-    {%= main_model_class %} = require('../models/{%= main_model_class %}'),
+    {%= main_model %} = require('../models/{%= main_model %}'),
     TestApp = require('../lib/test/TestApp');
 
 describe('app', function () {
@@ -14,11 +14,11 @@ describe('app', function () {
     });
 
     beforeEach(function (done) {
-        {%= main_model_class %}.remove({}, done);
+        {%= main_model %}.remove({}, done);
     });
 
-    it('get /{%= main_model %}', function (done) {
-        {%= main_model_class %}.findOne({}, function (err, {%= main_model %}) {
+    it('get /{%= main_model_instance %}', function (done) {
+        {%= main_model %}.findOne({}, function (err, {%= main_model_instance %}) {
             assert(!err);
             done();
         });

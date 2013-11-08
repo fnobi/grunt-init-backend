@@ -29,13 +29,10 @@ exports.template = function (grunt, init, done) {
             name: 'main_model',
             message: 'model used mainly',
             default: 'User',
-            validator: new RegExp('^[a-z]+$')
+            validator: new RegExp('^[A-Z][a-z]+$')
         }
     ], function(err, props) {
-        props.main_model_class = [
-            props.main_model.slice(0, 1).toUpperCase(),
-            props.main_model.slice(1)
-        ].join('');
+        props.main_model_instance = props.main_model.toLowerCase();
 
         // Files to copy (and process).
         var files = init.filesToCopy(props);
