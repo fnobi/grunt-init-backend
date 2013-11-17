@@ -6,7 +6,7 @@ describe('app', function () {
 
     it('get /', function (done) {
         app.request({ path: '/' }, function (err, res, body) {
-            assert.equel(res.statusCode, '200');
+            assert.equal(res.statusCode, '200');
             assert(body);
             done();
         });
