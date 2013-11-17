@@ -37,6 +37,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.get('/{%= main_model_instance %}/:name', routes.{%= main_model_instance %}.get);
+app.get('/{%= main_model_instance %}/:name.:ext', routes.{%= main_model_instance %}.get);
 app.post('/{%= main_model_instance %}', routes.{%= main_model_instance %}.post);
 
 

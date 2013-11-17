@@ -65,7 +65,10 @@ exports.template = function (grunt, init, done) {
         init.copyAndProcess(files, props, {});
 
         // write package.json
-        init.writePackageJSON('package.json', pkg);
+        init.writePackageJSON('package.json', pkg, function (pkg, props) {
+            pkg.scripts = props.scripts;
+            return pkg;
+        });
 
         // npm install & bower install
         shellLines([{
