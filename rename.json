@@ -1,5 +1,7 @@
 {
   "models/Model.js": "models/{%= main_model %}.js",
   "routes/model.js": "routes/{%= main_model_instance %}.js",
-  "test/model-model-test.js": "test/model-{%= main_model_instance %}-test.js"
+  "test/model-model-test.js": "test/model-{%= main_model_instance %}-test.js",
+  "test/route-model-test.js": "test/route-{%= main_model_instance %}-test.js",
+  "views/model.ejs": "views/{%= main_model_instance %}.ejs"
 }

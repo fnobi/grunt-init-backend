@@ -4,12 +4,9 @@ var assert = require('chai').assert,
     config = require('config'),
     async = require('async'),
 
-    {%= main_model %} = require(__dirname + '/../models/{%= main_model %}'),
-    TestApp = require(__dirname + '/../lib/test/TestApp');
+    {%= main_model %} = require(__dirname + '/../models/{%= main_model %}');
 
 describe('app', function () {
-    var app = new TestApp(require(__dirname + '/../app'));
-
     before(function () {
         mongoose.connect(config.mongodb.url);
     });
