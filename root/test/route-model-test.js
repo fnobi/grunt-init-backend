@@ -11,6 +11,9 @@ describe('app', function () {
     var app = new TestApp(require(__dirname + '/../app'));
 
     before(function () {
+        if (mongoose.connection.db) {
+            return;
+        }
         mongoose.connect(config.mongodb.url);
     });
 

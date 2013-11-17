@@ -8,6 +8,9 @@ var assert = require('chai').assert,
 
 describe('app', function () {
     before(function () {
+        if (mongoose.connection.db) {
+            return;
+        }
         mongoose.connect(config.mongodb.url);
     });
 
