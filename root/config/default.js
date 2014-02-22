@@ -3,9 +3,9 @@ module.exports = {
     mongodb: {
         url: 'mongodb://localhost/{%= name %}'
     },
-
     options: {
         title: "{%= name %}",
-        description: "{%= description %}"
+        description: "{%= description %}",
+        url: "http://localhost:{%= port %}/"
     }
 };

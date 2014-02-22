@@ -23,21 +23,31 @@ exports.template = function (grunt, init, done) {
         {
             name: 'port',
             message: 'port number used by express server.',
-            default: 80,
             validator: new RegExp('^[0-9]+$')
         },
         {
+            name: 'use_socketio',
+            message: 'use socket.io? [Y|n]',
+            default: 'n',
+            validator: /^(Y|n)$/
+        },
+        {
             name: 'main_model',
-            message: 'model used mainly',
+            message: 'model used mainly.',
             default: 'Item',
             validator: new RegExp('^[A-Z][a-z]+$')
         }
     ], function(err, props) {
+        // custom props.
+        props.use_socketio = (props.use_socketio == 'Y') ? true : false;
         props.main_model_instance = props.main_model.toLowerCase();
+        props.template_name = 'backend';
+        props.project_path = process.cwd();
 
-        // Files to copy (and process).
+        // files to copy (and process).
         var files = init.filesToCopy(props);
 
+        // init package.json
         var pkg = {
             name: props.name,
             description: props.description,
@@ -56,12 +66,17 @@ exports.template = function (grunt, init, done) {
                 "socket.io": "~0.9.16"
             }
         };
+        
+        // process flag
+        if (!props.use_socketio) {
+            delete pkg.dependencies['socket.io'];
+            init.escapeFiles('socket-app.js', files);
+        }
 
-        props.template_name = 'backend';
-        props.project_path = process.cwd();
+        // set package.json
         props.pkg = pkg;
 
-        // Actually copy (and process) files.
+        // actually copy (and process) files.
         init.copyAndProcess(files, props, {});
 
         // write package.json
