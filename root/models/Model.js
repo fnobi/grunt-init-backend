@@ -1,5 +1,4 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var Schema = require('mongoose').Schema;
 
 var {%= main_model %} = new Schema({
     name: {
@@ -8,4 +7,12 @@ var {%= main_model %} = new Schema({
     }
 });
 
-module.exports = mongoose.model('{%= main_model %}', {%= main_model %});
+{%= main_model %}.methods = {
+    json: function () {
+        return {
+            name: this.name
+        };
+    }
+};
+
+module.exports = {%= main_model %};

@@ -1,15 +1,11 @@
 var http = require('http');
 var config = require('config');
-var mongoose = require('mongoose');
 
 var app = require(__dirname + '/app');
 
 
 // create server
-var server = http.createServer(app);
-
-// init services
-mongoose.connect(config.mongodb.url);{% if (use_socketio) { %}
+var server = http.createServer(app);{% if (use_socketio) { %}
 
 // init socket.io
 var io = require('socket.io').listen(server);{% }  %}

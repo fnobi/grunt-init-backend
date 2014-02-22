@@ -1,36 +1,42 @@
-var assert = require('chai').assert,
+var assert = require('chai').assert;
 
-    mongoose = require('mongoose'),
-    config = require('config'),
-    async = require('async'),
+var config = require('config');
+var async = require('async');
 
-    {%= main_model %} = require(__dirname + '/../models/{%= main_model %}'),
-    TestApp = require(__dirname + '/../lib/test/TestApp');
+var TestApp = require(__dirname + '/../lib/test/TestApp');
 
 describe('app', function () {
     var app = new TestApp(require(__dirname + '/../app'));
+    
+    var models = app.app.get('models');
+    var {%= main_model %} = models.{%= main_model %};
 
-    before(function () {
-        if (mongoose.connection.db) {
-            return;
-        }
-        mongoose.connect(config.mongodb.url);
-    });
-
-    beforeEach(function (done) {
+    before(function (done) {
         {%= main_model %}.remove({}, done);
     });
 
-    it('get {%= main_model_instance %} as json', function (done) {
+    it('create & show {%= main_model_instance %}', function (done) {
         var name = 'hogehoge';
 
         async.series([function (next) {
-            var {%= main_model_instance %} = new {%= main_model %}({
-                name: name
+            app.request({ 
+                method: 'POST',
+                path: '/{%= main_model_instance %}?name=' + name
+            }, function (err, res, body) {
+                assert.equal(res.statusCode, '200');
+                assert(body.indexOf(name) > 0);
+
+                next();
             });
-            {%= main_model_instance %}.save(next);
         }, function (next) {
-            app.request({ path: '/{%= main_model_instance %}/' + name + '.json' }, function (err, res, body) {
+            app.request({ path: '/{%= main_model_instance %}' }, function (err, res, body) {
+                assert.equal(res.statusCode, '200');
+                assert(body.indexOf(name) > 0);
+
+                next();
+            });
+        }, function (next) {
+            app.request({ path: '/{%= main_model_instance %}/' + name + '?format=json'}, function (err, res, body) {
                 assert.equal(res.statusCode, '200');
 
                 var json = JSON.parse(body);
@@ -41,18 +47,23 @@ describe('app', function () {
         }]);
     });
 
-    it('get {%= main_model_instance %} as html', function (done) {
-        var name = 'hogehoge';
+
+    it('error on duplicating name', function (done) {
+        var name = 'mogemoge';
 
         async.series([function (next) {
-            var {%= main_model_instance %} = new {%= main_model %}({
-                name: name
+            app.request({ 
+                method: 'POST',
+                path: '/{%= main_model_instance %}?name=' + name
+            }, function (err, res, body) {
+                next();
             });
-            {%= main_model_instance %}.save(next);
         }, function (next) {
-            app.request({ path: '/{%= main_model_instance %}/' + name }, function (err, res, body) {
-                assert.equal(res.statusCode, '200');
-                assert(body.indexOf(name) > 0);
+            app.request({ 
+                method: 'POST',
+                path: '/{%= main_model_instance %}?name=' + name
+            }, function (err, res, body) {
+                assert.equal(res.statusCode, '400');
 
                 done();
             });

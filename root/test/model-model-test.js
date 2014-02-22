@@ -1,18 +1,13 @@
-var assert = require('chai').assert,
+var assert = require('chai').assert;
 
-    mongoose = require('mongoose'),
-    config = require('config'),
-    async = require('async'),
+var mongoose = require('mongoose');
+var config = require('config');
+var async = require('async');
 
-    {%= main_model %} = require(__dirname + '/../models/{%= main_model %}');
+var models = require(__dirname + '/../models');
+var {%= main_model %} = models.{%= main_model %};
 
 describe('app', function () {
-    before(function () {
-        if (mongoose.connection.db) {
-            return;
-        }
-        mongoose.connect(config.mongodb.url);
-    });
 
     beforeEach(function (done) {
         {%= main_model %}.remove({}, done);
