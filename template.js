@@ -32,6 +32,11 @@ exports.template = function (grunt, init, done) {
             validator: /^(Y|n)$/
         },
         {
+            name: 'host_name',
+            message: 'host name for production',
+            validator: /^[a-z0-9-_.]+$/
+        },
+        {
             name: 'main_model',
             message: 'model used mainly.',
             default: 'Item',
@@ -54,7 +59,7 @@ exports.template = function (grunt, init, done) {
             version: props.version,
             scripts: {
                 test: 'NODE_ENV=test mocha',
-                start: 'node server'
+                start: 'NODE_ENV=production forever start --sourceDir . --pidFile ' + props.host_name + '.pid -l ' + props.host_name + '.log --append server.js'
             },
             dependencies: {
                 "config": "~0.4.25",
