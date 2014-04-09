@@ -26,6 +26,12 @@ exports.template = function (grunt, init, done) {
             validator: new RegExp('^[0-9]+$')
         },
         {
+            name: 'use_model',
+            message: 'use model (mongoose)? [Y|n]',
+            default: 'Y',
+            validator: /^(Y|n)$/
+        },
+        {
             name: 'use_socketio',
             message: 'use socket.io? [Y|n]',
             default: 'n',
@@ -44,6 +50,7 @@ exports.template = function (grunt, init, done) {
         }
     ], function(err, props) {
         // custom props.
+        props.use_model = (props.use_model == 'Y') ? true : false;
         props.use_socketio = (props.use_socketio == 'Y') ? true : false;
         props.main_model_instance = props.main_model.toLowerCase();
         props.template_name = 'backend';
@@ -63,16 +70,25 @@ exports.template = function (grunt, init, done) {
             },
             dependencies: {
                 "config": "~0.4.25",
-                "mongoose": "~3.6.11",
                 "async": "~0.2.8",
                 "ejs": "~0.8.4",
                 'chai': '~1.6.1',
                 "express": "~3.3.4",
+                "mongoose": "~3.6.11",
                 "socket.io": "~0.9.16"
             }
         };
-        
+
         // process flag
+        if (!props.use_model) {
+            delete pkg.dependencies['mongoose'];
+            init.escapeFiles('models/*', files);
+            init.escapeFiles('routes/' + props.main_model_instance + '*', files);
+            init.escapeFiles('test/model-*', files);
+            init.escapeFiles('test/route-' + props.main_model_instance + '*', files);
+            init.escapeFiles('views/' + props.main_model_instance + '*', files);
+        }
+
         if (!props.use_socketio) {
             delete pkg.dependencies['socket.io'];
             init.escapeFiles('socket-app.js', files);

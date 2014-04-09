@@ -2,8 +2,8 @@ var express = require('express');
 var path = require('path');
 var config = require('config');
 
-var routes = require(__dirname + '/routes');
-var models = require(__dirname + '/models');
+var routes = require(__dirname + '/routes');{% if (use_model) { %}
+var models = require(__dirname + '/models');{% } %}
 
 var app = express();
 
@@ -36,8 +36,8 @@ if ('development' == app.get('env')) {
 // =======================================================
 //  init services
 // =======================================================
-
-app.set('models', models);
+{% if (use_model) { %}
+app.set('models', models);{% } %}
 
 
 // =======================================================
@@ -45,10 +45,10 @@ app.set('models', models);
 // =======================================================
 
 app.get('/', routes.index);
-
+{% if (use_model) { %}
 app.get('/{%= main_model_instance %}', routes.{%= main_model_instance %}.index);
 app.post('/{%= main_model_instance %}', routes.{%= main_model_instance %}.create);
-app.get('/{%= main_model_instance %}/:name', routes.{%= main_model_instance %}.show);
+app.get('/{%= main_model_instance %}/:name', routes.{%= main_model_instance %}.show);{% } %}
 
 
 module.exports = app;
