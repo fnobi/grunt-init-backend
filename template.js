@@ -66,6 +66,7 @@ exports.template = function (grunt, init, done) {
             version: props.version,
             scripts: {
                 test: 'NODE_ENV=test mocha',
+                prestart: 'npm install',
                 start: 'NODE_ENV=production forever start --sourceDir . --pidFile ' + props.host_name + '.pid -l ' + props.host_name + '.log --append server.js'
             },
             dependencies: {
