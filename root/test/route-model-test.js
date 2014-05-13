@@ -42,9 +42,9 @@ describe('app', function () {
                 var json = JSON.parse(body);
                 assert.equal(json.name, name);
 
-                done();
+                next();
             });
-        }]);
+        }], done);
     });
 
 
@@ -65,8 +65,8 @@ describe('app', function () {
             }, function (err, res, body) {
                 assert.equal(res.statusCode, '400');
 
-                done();
+                next();
             });
-        }]);
+        }], done);
     });
 });
