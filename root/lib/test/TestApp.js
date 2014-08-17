@@ -11,7 +11,13 @@ TestApp.prototype.request = function (opts, callback) {
     var request = {
         method: opts.method || 'GET',
         url: opts.path || '/',
-        headers: opts.headers || {}
+        query: opts.query || {},
+        headers: opts.headers || {
+            // TODO: mock headers
+        },
+        socket: {
+            destroy: function () {}
+        }
     };
 
     var stack = [],
