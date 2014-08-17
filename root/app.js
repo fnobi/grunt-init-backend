@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var config = require('config');
 
+var extParser = require(__dirname + '/lib/ext-parser');
+
 var routes = require(__dirname + '/routes');{% if (use_model) { %}
 var models = require(__dirname + '/models');{% } %}
 
@@ -13,13 +15,19 @@ var app = express();
 // =======================================================
 
 app.set('port', process.env.PORT || config.port);
-app.set('view engine', 'ejs');
-
+app.set('view engine', 'jade');
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.methodOverride());
-app.use(app.router);
+app.use(extParser({
+    param: 'format',
+    router: app.router
+}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// view locals setting
+app.locals = config.locals;
+app.locals.pretty = true; // jade output style
 
 
 // =======================================================
@@ -48,7 +56,7 @@ app.get('/', routes.index);
 {% if (use_model) { %}
 app.get('/{%= main_model_instance %}', routes.{%= main_model_instance %}.index);
 app.post('/{%= main_model_instance %}', routes.{%= main_model_instance %}.create);
-app.get('/{%= main_model_instance %}/:name', routes.{%= main_model_instance %}.show);{% } %}
+app.get('/{%= main_model_instance %}/:uid', routes.{%= main_model_instance %}.show);{% } %}
 
 
 module.exports = app;

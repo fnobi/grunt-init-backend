@@ -7,13 +7,13 @@ var async = require('async');
 var models = require(__dirname + '/../models');
 var {%= main_model %} = models.{%= main_model %};
 
-describe('app', function () {
+describe('{%= main_model %} model', function () {
 
     beforeEach(function (done) {
         {%= main_model %}.remove({}, done);
     });
 
-    it('insert and find {%= main_model_instance %}', function (done) {
+    it('create and find it', function (done) {
         var name = 'hogehoge';
 
         async.series([function (next) {
@@ -35,7 +35,7 @@ describe('app', function () {
         });
     });
 
-    it('insert and remove {%= main_model_instance %}', function (done) {
+    it('create and remove it', function (done) {
         var name = 'mogemoge';
 
         async.series([function (next) {

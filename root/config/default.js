@@ -3,7 +3,8 @@ module.exports = {
     mongodb: {
         url: 'mongodb://localhost/{%= name %}'
     },
-    options: {
+    uid_try_max_count: 5,
+    locals: {
         title: "{%= name %}",
         description: "{%= description %}",
         url: "http://localhost:{%= port %}/"

@@ -65,18 +65,18 @@ exports.template = function (grunt, init, done) {
             description: props.description,
             version: props.version,
             scripts: {
-                test: 'NODE_ENV=test mocha',
+                test: 'NODE_ENV=test mocha --reporter spec',
                 prestart: 'npm install',
                 start: 'NODE_ENV=production forever start --sourceDir . --pidFile ' + props.host_name + '.pid -l ' + props.host_name + '.log --append server.js'
             },
             dependencies: {
                 "config": "~0.4.25",
                 "async": "~0.2.8",
-                "ejs": "~0.8.4",
                 'chai': '~1.6.1',
                 "express": "~3.3.4",
                 "mongoose": "~3.6.11",
-                "socket.io": "~0.9.16"
+                "socket.io": "~0.9.16",
+                "jade": "~1.5.0"
             }
         };
 

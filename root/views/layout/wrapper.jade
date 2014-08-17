@@ -1,0 +1,19 @@
+doctype html
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    title= title
+  body
+    section.wrapper
+      h1: a(href="/")= title
+      block content{% if (use_socketio) { %}
+      script(src="/socket.io/socket.io.js")
+      script
+        var socket = io.connect();
+        socket.on('connect', function (data) {
+          console.log('[connection]');
+        
+          socket.on('disconnect', function () {
+            console.log('[disconnection]');
+          })
+        });{% } %}
