@@ -19,11 +19,11 @@ app.set('view engine', 'jade');
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.methodOverride());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(extParser({
     param: 'format',
     router: app.router
 }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 // view locals setting
 app.locals = config.locals;
