@@ -111,6 +111,9 @@ exports.template = function (grunt, init, done) {
         shellLines([{
             command: 'npm install',
             message: 'Installing npm dependencies'
+        },{
+            command: 'git init; git add .; git commit -m "scaffold."',
+            message: 'Initialize git'
         }], done);
     });
 };
