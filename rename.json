@@ -3,7 +3,7 @@
   "routes/model.js": "routes/{%= main_model_instance %}.js",
   "test/model-model-test.js": "test/model-{%= main_model_instance %}-test.js",
   "test/route-model-test.js": "test/route-{%= main_model_instance %}-test.js",
-  "views/model-show.jade": "views/{%= main_model_instance %}-show.jade",
-  "views/model-index.jade": "views/{%= main_model_instance %}-index.jade",
+  "views/model:show.jade": "views/{%= main_model_instance %}:show.jade",
+  "views/model:index.jade": "views/{%= main_model_instance %}:index.jade",
   "views/partial/model-list.jade": "views/partial/{%= main_model_instance %}-list.jade"
 }

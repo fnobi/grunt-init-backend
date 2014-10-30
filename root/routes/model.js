@@ -30,7 +30,7 @@ module.exports = {
             if (format == 'json') {
                 res.json(200, json);
             } else {
-                res.render('{%= main_model_instance %}-index', json);
+                res.render('{%= main_model_instance %}:index', json);
             }
         });
     },
@@ -60,7 +60,7 @@ module.exports = {
             if (format == 'json') {
                 res.json(200, json);
             } else {
-                res.render('{%= main_model_instance %}-show', json);
+                res.render('{%= main_model_instance %}:show', json);
             }
         });
     },
