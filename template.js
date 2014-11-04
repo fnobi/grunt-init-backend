@@ -56,6 +56,8 @@ exports.template = function (grunt, init, done) {
         props.template_name = 'backend';
         props.project_path = process.cwd();
 
+        props.use_session = false;
+
         // files to copy (and process).
         var files = init.filesToCopy(props);
 
@@ -76,7 +78,8 @@ exports.template = function (grunt, init, done) {
                 "express": "~3.3.4",
                 "mongoose": "~3.6.11",
                 "socket.io": "~0.9.16",
-                "jade": "~1.5.0"
+                "jade": "~1.5.0",
+                "connect-redis": "~1.4.7"
             }
         };
 
@@ -88,6 +91,10 @@ exports.template = function (grunt, init, done) {
             init.escapeFiles('test/model-*', files);
             init.escapeFiles('test/route-' + props.main_model_instance + '*', files);
             init.escapeFiles('views/' + props.main_model_instance + '*', files);
+        }
+
+        if (!props.use_session) {
+            delete pkg.dependencies['connect-redis'];
         }
 
         if (!props.use_socketio) {

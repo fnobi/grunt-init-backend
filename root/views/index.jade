@@ -2,4 +2,14 @@ extends layout/wrapper
 
 block content
   div.index
-    p= description
+    p= description{% if (use_session) { %}
+  div.me
+    if user_uid
+      span= 'hello, '
+      span= user_uid
+      span= '. | '
+      a(href="/logout") logout
+    else
+      form(method="POST", action="/login")
+        input(type="text", name="user_uid")
+        input(type="submit", value="login"){% } %}

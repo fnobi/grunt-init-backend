@@ -2,7 +2,8 @@ var express = require('express');
 var path = require('path');
 var config = require('config');
 
-var extParser = require(__dirname + '/lib/ext-parser');
+var extParser = require(__dirname + '/lib/ext-parser');{% if (use_session) { %}
+var RedisStore = require('connect-redis')(express);{% } %}
 
 var routes = require(__dirname + '/routes');{% if (use_model) { %}
 var models = require(__dirname + '/models');{% } %}
@@ -17,7 +18,15 @@ var app = express();
 app.set('port', process.env.PORT || config.port);
 app.set('view engine', 'jade');
 app.use(express.bodyParser());
-app.use(express.cookieParser());
+app.use(express.cookieParser(config.cookie_secret));{% if (use_session) { %}
+app.use(express.session({
+    key: config.session_key,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }, // 1week
+    store: new RedisStore({
+        db: 1,
+        prefix: config.session_prefix
+    })
+}));{% } %}
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(extParser({
@@ -52,11 +61,14 @@ app.set('models', models);{% } %}
 //  routing
 // =======================================================
 
-app.get('/', routes.index);
-{% if (use_model) { %}
+app.get('/', routes.index);{% if (use_model) { %}
+
 app.get('/{%= main_model_instance %}', routes.{%= main_model_instance %}.index);
 app.post('/{%= main_model_instance %}', routes.{%= main_model_instance %}.create);
-app.get('/{%= main_model_instance %}/:uid', routes.{%= main_model_instance %}.show);{% } %}
+app.get('/{%= main_model_instance %}/:uid', routes.{%= main_model_instance %}.show);{% } %}{% if (use_session) { %}
+
+app.post('/login', routes.login);
+app.get('/logout', routes.logout);{% } %}
 
 
 module.exports = app;
