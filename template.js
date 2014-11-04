@@ -32,6 +32,12 @@ exports.template = function (grunt, init, done) {
             validator: /^(Y|n)$/
         },
         {
+            name: 'use_session',
+            message: 'use session? [Y|n]',
+            default: 'n',
+            validator: /^(Y|n)$/
+        },
+        {
             name: 'use_socketio',
             message: 'use socket.io? [Y|n]',
             default: 'n',
@@ -51,12 +57,11 @@ exports.template = function (grunt, init, done) {
     ], function(err, props) {
         // custom props.
         props.use_model = (props.use_model == 'Y') ? true : false;
+        props.use_session = (props.use_session == 'Y') ? true : false;
         props.use_socketio = (props.use_socketio == 'Y') ? true : false;
         props.main_model_instance = props.main_model.toLowerCase();
         props.template_name = 'backend';
         props.project_path = process.cwd();
-
-        props.use_session = false;
 
         // files to copy (and process).
         var files = init.filesToCopy(props);
