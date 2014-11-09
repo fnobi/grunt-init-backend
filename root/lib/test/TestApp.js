@@ -17,7 +17,8 @@ TestApp.prototype.request = function (opts, callback) {
         },
         socket: {
             destroy: function () {}
-        }
+        },
+        session: {}
     };
 
     var stack = [],
