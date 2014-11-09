@@ -1,12 +1,12 @@
 extends layout/content
 
 block content
-  section.{%= main_model_instance %}-index
-    h2 {%= main_model_instance %} index
+  section./*[= main_model_instance ]*/-index
+    h2 /*[= main_model_instance ]*/ index
 
-    form.{%= main_model_instance %}-index__create(method="POST")
+    form./*[= main_model_instance ]*/-index__create(method="POST")
       h3 create new
       p: input(type="text", name="name")
       p: input(type="submit", value="create")
 
-    include partial/{%= main_model_instance %}-list
+    include partial//*[= main_model_instance ]*/-list

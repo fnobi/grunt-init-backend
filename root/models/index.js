@@ -11,5 +11,5 @@ module.exports = (function (classes) {
 
     return models;
 })([
-    '{%= main_model %}'
+    '/*[= main_model ]*/'
 ]);

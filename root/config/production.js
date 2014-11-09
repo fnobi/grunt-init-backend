@@ -1,5 +1,5 @@
 module.exports = {
     options: {
-        url: "http://{%= host_name %}/"
+        url: "http:///*[= host_name ]*//"
     }
 };

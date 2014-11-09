@@ -13,6 +13,9 @@ exports.warnOn = '*';
 
 // The actual init template.
 exports.template = function (grunt, init, done) {
+    // override template delimiter
+    grunt.template.addDelimiters('init', '/*[', ']*/');
+
     // custom methods
     require('./customMethods')(grunt, init);
 

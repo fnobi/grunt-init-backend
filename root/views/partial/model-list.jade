@@ -1,8 +1,8 @@
-if {%= main_model_instance %}s.length
-  ul.{%= main_model_instance %}-list
-    each {%= main_model_instance %} in {%= main_model_instance %}s
-      - var href = "/{%= main_model_instance %}/" + {%= main_model_instance %}.uid
-      li: a(href=href)= {%= main_model_instance %}.name
+if /*[= main_model_instance ]*/s.length
+  ul./*[= main_model_instance ]*/-list
+    each /*[= main_model_instance ]*/ in /*[= main_model_instance ]*/s
+      - var href = "//*[= main_model_instance ]*//" + /*[= main_model_instance ]*/.uid
+      li: a(href=href)= /*[= main_model_instance ]*/.name
 else
-  div.{%= main_model_instance %}-empty
+  div./*[= main_model_instance ]*/-empty
     p nothing.

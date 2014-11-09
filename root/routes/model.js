@@ -9,9 +9,9 @@ module.exports = {
         var format = req.param('format');
 
         var models = res.app.get('models');
-        var {%= main_model %} = models.{%= main_model %};
+        var /*[= main_model ]*/ = models./*[= main_model ]*/;
 
-        {%= main_model %}.find({}, function (err, result) {
+        /*[= main_model ]*/.find({}, function (err, result) {
             if (err) {
                 res.status(500);
                 return handleError(err, req, res);
@@ -19,18 +19,18 @@ module.exports = {
 
             result = result || [];
 
-            var {%= main_model_instance %}s = [];
-            result.forEach(function ({%= main_model_instance %}) {
-                {%= main_model_instance %}s.push({%= main_model_instance %}.json());
+            var /*[= main_model_instance ]*/s = [];
+            result.forEach(function (/*[= main_model_instance ]*/) {
+                /*[= main_model_instance ]*/s.push(/*[= main_model_instance ]*/.json());
             });
 
             var json = {};
-            json.{%= main_model_instance %}s = {%= main_model_instance %}s;
+            json./*[= main_model_instance ]*/s = /*[= main_model_instance ]*/s;
 
             if (format == 'json') {
                 res.json(200, json);
             } else {
-                res.render('{%= main_model_instance %}:index', json);
+                res.render('/*[= main_model_instance ]*/:index', json);
             }
         });
     },
@@ -39,28 +39,28 @@ module.exports = {
         var format = req.param('format');
         
         var models = res.app.get('models');
-        var {%= main_model %} = models.{%= main_model %};
+        var /*[= main_model ]*/ = models./*[= main_model ]*/;
 
-        {%= main_model %}.findOne({
+        /*[= main_model ]*/.findOne({
             uid: uid
-        }, function (err, {%= main_model_instance %}) {
+        }, function (err, /*[= main_model_instance ]*/) {
             if (err) {
                 res.status(500);
                 return handleError(err, req, res);
             }
-            if (!{%= main_model_instance %}) {
+            if (!/*[= main_model_instance ]*/) {
                 res.status(404);
                 return handleError(err, req, res);
             }
 
             var json = {
-                {%= main_model_instance %}: {%= main_model_instance %}.json()
+                /*[= main_model_instance ]*/: /*[= main_model_instance ]*/.json()
             };
 
             if (format == 'json') {
                 res.json(200, json);
             } else {
-                res.render('{%= main_model_instance %}:show', json);
+                res.render('/*[= main_model_instance ]*/:show', json);
             }
         });
     },
@@ -69,13 +69,13 @@ module.exports = {
         var name = req.param('name');
         
         var models = res.app.get('models');
-        var {%= main_model %} = models.{%= main_model %};
+        var /*[= main_model ]*/ = models./*[= main_model ]*/;
 
-        var {%= main_model_instance %} = new {%= main_model %}({
+        var /*[= main_model_instance ]*/ = new /*[= main_model ]*/({
             name: name
         });
 
-        {%= main_model_instance %}.save(function (err, {%= main_model_instance %}) {
+        /*[= main_model_instance ]*/.save(function (err, /*[= main_model_instance ]*/) {
             if (err) {
                 if (err.code == 11000) { // duplicate key error
                     var uidTryCount = req.query.__uid_try || 0;
@@ -91,10 +91,10 @@ module.exports = {
             
             if (format == 'json') {
                 res.json(200, {
-                    {%= main_model_instance %}: {%= main_model_instance %}.json()
+                    /*[= main_model_instance ]*/: /*[= main_model_instance ]*/.json()
                 });
             } else {
-                res.redirect('/{%= main_model_instance %}/' + {%= main_model_instance %}.uid);
+                res.redirect('//*[= main_model_instance ]*//' + /*[= main_model_instance ]*/.uid);
             }
         });
     }

@@ -1,7 +1,7 @@
 var Schema = require('mongoose').Schema;
 var uidFactory = require(__dirname + '/../lib/uid-factory');
 
-var {%= main_model %} = new Schema({
+var /*[= main_model ]*/ = new Schema({
     uid: {
         type: String,
         index: { unique: true },
@@ -14,7 +14,7 @@ var {%= main_model %} = new Schema({
     }
 });
 
-{%= main_model %}.methods = {
+/*[= main_model ]*/.methods = {
     json: function () {
         return {
             uid: this.uid,
@@ -24,4 +24,4 @@ var {%= main_model %} = new Schema({
     }
 };
 
-module.exports = {%= main_model %};
+module.exports = /*[= main_model ]*/;
