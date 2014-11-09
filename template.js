@@ -41,6 +41,11 @@ exports.template = function (grunt, init, done) {
             validator: /^(Y|n)$/
         },
         {
+            name: 'auth_list',
+            message: 'auth list [soundcloud]',
+            default: ''
+        },
+        {
             name: 'use_socketio',
             message: 'use socket.io? [Y|n]',
             default: 'n',
@@ -60,7 +65,8 @@ exports.template = function (grunt, init, done) {
     ], function(err, props) {
         // custom props.
         props.use_model = (props.use_model == 'Y') ? true : false;
-        props.use_session = (props.use_session == 'Y') ? true : false;
+        props.use_auth_soundcloud = /soundcloud/.test(props.auth_list);
+        props.use_session = (props.use_session == 'Y') || props.use_auth_soundcloud;
         props.use_socketio = (props.use_socketio == 'Y') ? true : false;
         props.main_model_instance = props.main_model.toLowerCase();
         props.template_name = 'backend';
@@ -87,7 +93,8 @@ exports.template = function (grunt, init, done) {
                 "mongoose": "~3.6.11",
                 "socket.io": "~0.9.16",
                 "jade": "~1.5.0",
-                "connect-redis": "~1.4.7"
+                "connect-redis": "~1.4.7",
+                "soundcloud-node": "0.0.8"
             }
         };
 
@@ -100,11 +107,14 @@ exports.template = function (grunt, init, done) {
             init.escapeFiles('test/route-' + props.main_model_instance + '*', files);
             init.escapeFiles('views/' + props.main_model_instance + '*', files);
         }
-
         if (!props.use_session) {
             delete pkg.dependencies['connect-redis'];
         }
-
+        if (!props.use_auth_soundcloud) {
+            delete pkg.dependencies['soundcloud-node'];
+            init.escapeFiles('lib/auth-soundcloud.js', files);
+            init.escapeFiles('routes/soundcloud.js', files);
+        }
         if (!props.use_socketio) {
             delete pkg.dependencies['socket.io'];
             init.escapeFiles('socket-app.js', files);

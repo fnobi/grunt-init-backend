@@ -68,7 +68,11 @@ app.post('//*[= main_model_instance ]*/', routes./*[= main_model_instance ]*/.cr
 app.get('//*[= main_model_instance ]*//:uid', routes./*[= main_model_instance ]*/.show);/*[ } ]*//*[ if (use_session) { ]*/
 
 app.post('/login', routes.login);
-app.get('/logout', routes.logout);/*[ } ]*/
+app.get('/logout', routes.logout);/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/
+
+app.get('/soundcloud/login', routes.soundcloud.login);
+app.get('/soundcloud/callback', routes.soundcloud.loginCallback);
+app.get('/soundcloud/stream/:track_id', routes.soundcloud.stream);/*[ } ]*/
 
 
 module.exports = app;

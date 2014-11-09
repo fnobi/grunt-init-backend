@@ -23,6 +23,7 @@ module.exports = {
     logout: function (req, res) {
         delete req.session.user_uid;
         res.redirect('/');
-    }/*[ } ]*//*[ if (use_model) { ]*/,
+    }/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/,
+    soundcloud: require(__dirname + '/soundcloud')/*[ } ]*//*[ if (use_model) { ]*/,
     /*[= main_model_instance ]*/: require(__dirname + '//*[= main_model_instance ]*/')/*[ } ]*/
 };
