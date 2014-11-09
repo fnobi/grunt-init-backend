@@ -5,11 +5,13 @@ html(lang="ja")
     title= title
   body
     section.error
+      h1= statusCode
       case statusCode
         when 500
-          h1 Internal Server Error
+          h2 Internal Server Error
+          p= error
         when 404
-          h1 Not Found
+          h2 Not Found
         default
-          h1 Error
-      p= error
+          h2 Error
+          p= error
