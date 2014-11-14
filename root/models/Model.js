@@ -22,7 +22,7 @@ var /*[= main_model ]*/ = new Schema({
             created_at: this.created_at
         };
     },
-    createWithRetry: function (tryCount, callback) {
+    saveWithRetry: function (tryCount, callback) {
         var instance = this;
         instance.save(function (err, row) {
             if (err) {
