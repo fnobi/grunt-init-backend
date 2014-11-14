@@ -1,29 +1,17 @@
 var config = require('config');
 
 var handleError = require(__dirname + '/error');
+var easy = require(__dirname + '/../lib/auth-easy');
 
 module.exports = {
     index: function (req, res) {/*[ if (use_session) { ]*/
-        var userUid = req.session.user_uid;
+        var easyName = easy.getEasyName(req, res);
         res.render('index', {
-            user_uid: userUid
+            easy_name: easyName
         });/*[ } else { ]*/
         res.render('index');/*[ } ]*/
     }/*[ if (use_session) { ]*/,
-    login: function (req, res) {
-        var userUid = req.param('user_uid');
-        if (!userUid) {
-            res.status(400);
-            return handleError('invalid login', req, res);
-        }
-        
-        req.session.user_uid = userUid;
-        res.redirect('/');
-    },
-    logout: function (req, res) {
-        delete req.session.user_uid;
-        res.redirect('/');
-    }/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/,
+    easy: require(__dirname + '/easy')/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/,
     soundcloud: require(__dirname + '/soundcloud')/*[ } ]*//*[ if (use_model) { ]*/,
     /*[= main_model_instance ]*/: require(__dirname + '//*[= main_model_instance ]*/')/*[ } ]*/
 };

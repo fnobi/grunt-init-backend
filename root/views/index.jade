@@ -4,12 +4,12 @@ block content
   div.index
     p= description/*[ if (use_session) { ]*/
   div.me
-    if user_uid
+    if easy_name
       span= 'hello, '
-      span= user_uid
+      span= easy_name
       span= '. | '
-      a(href="/logout") logout
+      a(href="/easy/logout") logout
     else
-      form(method="POST", action="/login")
-        input(type="text", name="user_uid")
+      form(method="POST", action="/easy/login")
+        input(type="text", name="easy_name")
         input(type="submit", value="login")/*[ } ]*/
