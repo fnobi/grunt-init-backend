@@ -24,13 +24,13 @@ module.exports = {
                 /*[= main_model_instance ]*/s.push(/*[= main_model_instance ]*/.json());
             });
 
-            var json = {};
-            json./*[= main_model_instance ]*/s = /*[= main_model_instance ]*/s;
+            var locals = {};
+            locals./*[= main_model_instance ]*/s = /*[= main_model_instance ]*/s;
 
             if (format == 'json') {
-                res.json(200, json);
+                res.json(200, locals);
             } else {
-                res.render('/*[= main_model_instance ]*/:index', json);
+                res.render('/*[= main_model_instance ]*/:index', locals);
             }
         });
     },
@@ -53,14 +53,14 @@ module.exports = {
                 return handleError(err, req, res);
             }
 
-            var json = {
+            var locals = {
                 /*[= main_model_instance ]*/: /*[= main_model_instance ]*/.json()
             };
 
             if (format == 'json') {
-                res.json(200, json);
+                res.json(200, locals);
             } else {
-                res.render('/*[= main_model_instance ]*/:show', json);
+                res.render('/*[= main_model_instance ]*/:show', locals);
             }
         });
     },

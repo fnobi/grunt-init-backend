@@ -3,14 +3,14 @@ module.exports = function (err, req, res) {
 
     res.status(res.statusCode || 500);
 
-    var json = {
+    var locals = {
         statusCode: res.statusCode,
         error: err || null
     };
 
     if (format == 'json') {
-        res.json(json);
+        res.json(locals);
     } else {
-        res.render('error', json);
+        res.render('error', locals);
     }
 };
