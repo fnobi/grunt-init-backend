@@ -20,8 +20,8 @@ module.exports = {
 
             client.getMe(function (err, user) {
                 if (err) {
-                    res.json(400, err);
-                    return;
+                    res.status(400);
+                    return handleError(err, req, res);
                 }
 
                 soundcloud.setAccessToken(req, res, tokens.access_token);

@@ -1,5 +1,7 @@
 var config = require('config');
 
+var handleError = require(__dirname + '/error');
+
 module.exports = {
     index: function (req, res) {/*[ if (use_session) { ]*/
         var userUid = req.session.user_uid;
@@ -11,10 +13,8 @@ module.exports = {
     login: function (req, res) {
         var userUid = req.param('user_uid');
         if (!userUid) {
-            res.json(400, {
-                error: 'invalid login.'
-            });
-            return;
+            res.status(400);
+            return handleError('invalid login', req, res);
         }
         
         req.session.user_uid = userUid;
