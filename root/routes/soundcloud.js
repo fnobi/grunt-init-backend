@@ -15,19 +15,12 @@ module.exports = {
 
         client.getToken(code, function (err, tokens) {
             if (err) {
+                res.status(400);
                 return handleError(err, req, res);
             }
 
-            client.getMe(function (err, user) {
-                if (err) {
-                    res.status(400);
-                    return handleError(err, req, res);
-                }
-
-                soundcloud.setAccessToken(req, res, tokens.access_token);
-
-                res.redirect('/');
-            });
+            soundcloud.setAccessToken(req, res, tokens.access_token);
+            res.redirect('/');
         });
     },
     stream: function (req, res) {
@@ -45,6 +38,7 @@ module.exports = {
 
         var client = soundcloud.getClientWithToken(accessToken);
         var apiPath = ['tracks', trackId, 'stream'].join('/');
+
         client.get('/' + apiPath, function (err, stream) {
             if (err) {
                 return handleError(err, req, res);
