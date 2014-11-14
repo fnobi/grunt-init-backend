@@ -11,16 +11,14 @@ module.exports = {
         var models = res.app.get('models');
         var /*[= main_model ]*/ = models./*[= main_model ]*/;
 
-        /*[= main_model ]*/.find({}, function (err, result) {
+        /*[= main_model ]*/.find({}, function (err, rows) {
             if (err) {
                 res.status(500);
                 return handleError(err, req, res);
             }
 
-            result = result || [];
-
             var /*[= main_model_instance ]*/s = [];
-            result.forEach(function (/*[= main_model_instance ]*/) {
+            (rows || []).forEach(function (/*[= main_model_instance ]*/) {
                 /*[= main_model_instance ]*/s.push(/*[= main_model_instance ]*/.json());
             });
 
@@ -43,18 +41,18 @@ module.exports = {
 
         /*[= main_model ]*/.findOne({
             uid: uid
-        }, function (err, /*[= main_model_instance ]*/) {
+        }, function (err, row) {
             if (err) {
                 res.status(500);
                 return handleError(err, req, res);
             }
-            if (!/*[= main_model_instance ]*/) {
+            if (!row) {
                 res.status(404);
                 return handleError(err, req, res);
             }
 
             var locals = {
-                /*[= main_model_instance ]*/: /*[= main_model_instance ]*/.json()
+                /*[= main_model_instance ]*/: row.json()
             };
 
             if (format == 'json') {
