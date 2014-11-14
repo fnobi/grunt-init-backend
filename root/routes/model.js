@@ -17,9 +17,8 @@ module.exports = {
                 return handleError(err, req, res);
             }
 
-            var /*[= main_model_instance ]*/s = [];
-            (rows || []).forEach(function (/*[= main_model_instance ]*/) {
-                /*[= main_model_instance ]*/s.push(/*[= main_model_instance ]*/.json());
+            var /*[= main_model_instance ]*/s = (rows || []).map(function (row) {
+                return row.json();
             });
 
             var locals = {};
