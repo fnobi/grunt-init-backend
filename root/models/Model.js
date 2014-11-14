@@ -21,6 +21,23 @@ var /*[= main_model ]*/ = new Schema({
             name: this.name,
             created_at: this.created_at
         };
+    },
+    createWithRetry: function (tryCount, callback) {
+        var instance = this;
+        instance.save(function (err, row) {
+            if (err) {
+                if (err.code == 11000 && tryCount > 0) {
+                    // duplicate key error
+                    process.nextTick(function () {
+                        instance.saveWithRetry(tryCount - 1, callback);
+                    });
+                    return;
+                }
+                callback(err);
+                return;
+            }
+            callback(null, row);
+        });
     }
 };
 

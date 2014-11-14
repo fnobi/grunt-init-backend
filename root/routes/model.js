@@ -73,20 +73,10 @@ module.exports = {
             name: name
         });
 
-        /*[= main_model_instance ]*/.save(function (err, /*[= main_model_instance ]*/) {
+        /*[= main_model_instance ]*/.saveWithRetry(config.uid_try_max_count, function (err, /*[= main_model_instance ]*/) {
             if (err) {
-                if (err.code == 11000) { // duplicate key error
-                    var uidTryCount = req.query.__uid_try || 0;
-                    if (uidTryCount < config.uid_try_max_count) {
-                        req.query.__uid_try = uidTryCount + 1;
-                        return module.exports.create(req, res);
-                    }
-                }
-
-                res.status(500);
                 return handleError(err, req, res);
             }
-            
             if (format == 'json') {
                 res.json(200, {
                     /*[= main_model_instance ]*/: /*[= main_model_instance ]*/.json()
