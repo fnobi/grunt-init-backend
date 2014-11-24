@@ -1,5 +1,5 @@
 module.exports = {
-    options: {
+    locals: {
         url: "http:///*[= host_name ]*//"
     }
 };
