@@ -42,7 +42,7 @@ exports.template = function (grunt, init, done) {
         },
         {
             name: 'auth_list',
-            message: 'auth list [soundcloud]',
+            message: 'auth list [soundcloud|facebook]',
             default: ''
         },
         {
@@ -66,7 +66,10 @@ exports.template = function (grunt, init, done) {
         // custom props.
         props.use_model = (props.use_model == 'Y') ? true : false;
         props.use_auth_soundcloud = /soundcloud/.test(props.auth_list);
-        props.use_session = (props.use_session == 'Y') || props.use_auth_soundcloud;
+        props.use_auth_facebook = /facebook/.test(props.auth_list);
+        props.use_session = (props.use_session == 'Y')
+            || props.use_auth_facebook
+            || props.use_auth_soundcloud;
         props.use_socketio = (props.use_socketio == 'Y') ? true : false;
         props.main_model_instance = props.main_model.toLowerCase();
         props.template_name = 'backend';
@@ -93,7 +96,9 @@ exports.template = function (grunt, init, done) {
                 "mongoose": "~3.6.11",
                 "socket.io": "~0.9.16",
                 "jade": "~1.5.0",
+                "request": "^2.48.0",
                 "connect-redis": "~1.4.7",
+                "facebook-api": "^0.1.2",
                 "soundcloud-node": "0.0.8"
             }
         };
@@ -109,6 +114,11 @@ exports.template = function (grunt, init, done) {
         }
         if (!props.use_session) {
             delete pkg.dependencies['connect-redis'];
+        }
+        if (!props.use_auth_facebook) {
+            delete pkg.dependencies['facebook-api'];
+            init.escapeFiles('lib/auth-facebook.js', files);
+            init.escapeFiles('routes/facebook.js', files);
         }
         if (!props.use_auth_soundcloud) {
             delete pkg.dependencies['soundcloud-node'];

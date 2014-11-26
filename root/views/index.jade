@@ -4,6 +4,7 @@ block content
   div.index
     p= description/*[ if (use_session) { ]*/
   div.me
+    h2 easy auth
     if easy_name
       span= 'hello, '
       span= easy_name
@@ -12,4 +13,9 @@ block content
     else
       form(method="POST", action="/easy/login")
         input(type="text", name="easy_name")
-        input(type="submit", value="login")/*[ } ]*/
+        input(type="submit", value="login")/*[ } ]*//*[ if (use_auth_facebook) { ]*/
+    h2 facebook auth
+    if is_facebook_user
+      span= 'hello, facebook user.'
+    else
+      a(href="/facebook/login") facebook login/*[ } ]*/
