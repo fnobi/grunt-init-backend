@@ -1,8 +1,11 @@
-var querystring = require('querystring');
+var qs = require('querystring');
 
 var config = require('config');
 var request = require('request');
 var fbAPI = require('facebook-api');
+
+var FACEBOOK_AUTH_URI = 'https://www.facebook.com/dialog/oauth';
+var FACEBOOK_ACCESS_TOKEN_URI = 'https://graph.facebook.com/oauth/access_token';
 
 var CLIENT_ID = config.facebook.app_id;
 var CLIENT_SECRET = config.facebook.secret_key;
@@ -27,7 +30,7 @@ module.exports = {
         client.me.info(callback);
     },
     getAuthURI: function () {
-        return 'https://www.facebook.com/dialog/oauth?' + querystring.stringify({
+        return FACEBOOK_AUTH_URI + '?' + qs.stringify({
             client_id: CLIENT_ID,
             redirect_uri: REDIRECT_URI
         });
@@ -40,7 +43,7 @@ module.exports = {
             return;
         }
 
-        request('https://graph.facebook.com/oauth/access_token?' + querystring.stringify({
+        request(FACEBOOK_ACCESS_TOKEN_URI + '?' + qs.stringify({
             code: code,
             client_id: CLIENT_ID,
             client_secret: CLIENT_SECRET,
@@ -50,7 +53,7 @@ module.exports = {
                 callback(err);
                 return;
             }
-            var params = querystring.parse(body);
+            var params = qs.parse(body);
             var accessToken = params.access_token;
             if (accessToken) {
                 callback(null, accessToken);
