@@ -68,7 +68,11 @@ app.post('//*[= main_model_instance ]*/', routes./*[= main_model_instance ]*/.cr
 app.get('//*[= main_model_instance ]*//:uid', routes./*[= main_model_instance ]*/.show);/*[ } ]*//*[ if (use_session) { ]*/
 
 app.post('/easy/login', routes.easy.login);
-app.get('/easy/logout', routes.easy.logout);/*[ } ]*//*[ if (use_auth_facebook) { ]*/
+app.get('/easy/logout', routes.easy.logout);/*[ } ]*//*[ if (use_auth_twitter) { ]*/
+
+app.get('/twitter/login', routes.twitter.login);
+app.get('/twitter/logout', routes.twitter.logout);
+app.get('/twitter/callback', routes.twitter.loginCallback);/*[ } ]*//*[ if (use_auth_facebook) { ]*/
 
 app.get('/facebook/login', routes.facebook.login);
 app.get('/facebook/logout', routes.facebook.logout);
