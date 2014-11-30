@@ -23,6 +23,24 @@ module.exports = {
         soundcloud.deleteUserToken(req.session);
         res.redirect('/');
     },
+    me: function (req, res) {
+        var accessToken = soundcloud.getUserToken(req.session);
+        if (!accessToken) {
+            res.status(400);
+            handleError('not authorized.', req, res);
+            return;
+        }
+        
+        var client = soundcloud.getClientWithToken(accessToken);
+        
+        client.get('/me', function (err, data) {
+            if (err) {
+                handleError(err, req, res);
+                return;
+            }
+            res.json(200, data);
+        });
+    },
     stream: function (req, res) {
         var trackId = req.param('track_id');
         if (!trackId) {

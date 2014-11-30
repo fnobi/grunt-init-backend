@@ -19,5 +19,15 @@ module.exports = {
     logout: function (req, res) {
         facebook.deleteUserToken(req.session);
         res.redirect('/');
+    },
+    me: function (req, res) {
+        facebook.getMe(req, function (err, data) {
+            if (err) {
+                res.status(500);
+                handleError(err.data, req, res);
+                return;
+            }
+            res.json(data);
+        });
     }
 };

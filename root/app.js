@@ -72,14 +72,18 @@ app.get('/easy/logout', routes.easy.logout);/*[ } ]*//*[ if (use_auth_twitter) {
 
 app.get('/twitter/login', routes.twitter.login);
 app.get('/twitter/logout', routes.twitter.logout);
-app.get('/twitter/callback', routes.twitter.loginCallback);/*[ } ]*//*[ if (use_auth_facebook) { ]*/
+app.get('/twitter/callback', routes.twitter.loginCallback);
+app.get('/twitter/me', routes.twitter.me);/*[ } ]*//*[ if (use_auth_facebook) { ]*/
 
 app.get('/facebook/login', routes.facebook.login);
 app.get('/facebook/logout', routes.facebook.logout);
-app.get('/facebook/callback', routes.facebook.loginCallback);/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/
+app.get('/facebook/callback', routes.facebook.loginCallback);
+app.get('/facebook/me', routes.facebook.me);/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/
 
 app.get('/soundcloud/login', routes.soundcloud.login);
+app.get('/soundcloud/logout', routes.soundcloud.logout);
 app.get('/soundcloud/callback', routes.soundcloud.loginCallback);
+app.get('/soundcloud/me', routes.soundcloud.me);
 app.get('/soundcloud/stream/:track_id', routes.soundcloud.stream);/*[ } ]*/
 
 

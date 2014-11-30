@@ -15,12 +15,38 @@ block content
         input(type="text", name="easy_name")
         input(type="submit", value="login")/*[ } ]*//*[ if (use_auth_twitter) { ]*/
     h2 twitter auth
-    if has_twitter_user
-      span= 'hello, twitter user.'
-    else
-      a(href="/twitter/login") twitter login/*[ } ]*//*[ if (use_auth_facebook) { ]*/
+    ul
+      if has_twitter_user
+        li
+          span= 'hello, twitter user.'
+        li
+          a(href="/twitter/me") me
+        li
+          a(href="/twitter/logout") logout
+      else
+        li
+          a(href="/twitter/login") twitter login/*[ } ]*//*[ if (use_auth_facebook) { ]*/
     h2 facebook auth
-    if is_facebook_user
-      span= 'hello, facebook user.'
-    else
-      a(href="/facebook/login") facebook login/*[ } ]*/
+    ul
+      if is_facebook_user
+        li
+          span= 'hello, facebook user.'
+        li
+          a(href="/facebook/me") me
+        li
+          a(href="/facebook/logout") logout
+      else
+        li
+          a(href="/facebook/login") facebook login/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/
+    h2 soundcloud auth
+    ul
+      if has_soundcloud_user
+        li
+          span= 'hello, soundcloud user.'
+        li
+          a(href="/soundcloud/me") me
+        li
+          a(href="/soundcloud/logout") logout
+      else
+        li
+          a(href="/soundcloud/login") soundcloud login/*[ } ]*/

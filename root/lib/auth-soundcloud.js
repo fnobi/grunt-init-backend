@@ -18,6 +18,9 @@ module.exports = {
         client.setToken(token);
         return client;
     },
+    isAuthorized: function (session) {
+        return !!this.getUserToken(session);
+    },
     getUserToken: function (session) {
         return session.soundcloud_access_token;
     },

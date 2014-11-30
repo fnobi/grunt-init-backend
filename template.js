@@ -42,7 +42,7 @@ exports.template = function (grunt, init, done) {
         },
         {
             name: 'auth_list',
-            message: 'auth list [soundcloud|twitter|facebook]',
+            message: 'auth list [twitter|facebook|soundcloud]',
             default: ''
         },
         {
@@ -65,9 +65,9 @@ exports.template = function (grunt, init, done) {
     ], function(err, props) {
         // custom props.
         props.use_model = (props.use_model == 'Y') ? true : false;
-        props.use_auth_soundcloud = /soundcloud/.test(props.auth_list);
         props.use_auth_twitter = /twitter/.test(props.auth_list);
         props.use_auth_facebook = /facebook/.test(props.auth_list);
+        props.use_auth_soundcloud = /soundcloud/.test(props.auth_list);
         props.use_session = (props.use_session == 'Y')
             || props.use_auth_twitter
             || props.use_auth_facebook
