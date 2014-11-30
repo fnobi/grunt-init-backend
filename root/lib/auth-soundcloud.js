@@ -19,15 +19,15 @@ module.exports = {
         return client;
     },
     isAuthorized: function (session) {
-        return !!this.getUserToken(session);
+        return !!this.loadAccessToken(session);
     },
-    getUserToken: function (session) {
+    loadAccessToken: function (session) {
         return session.soundcloud_access_token;
     },
-    setUserToken: function (session, token) {
+    saveAccessToken: function (session, token) {
         session.soundcloud_access_token = token;
     },
-    deleteUserToken: function (session) {
+    clearAccessToken: function (session) {
         delete session.soundcloud_access_token;
     },
     getAuthURI: function () {

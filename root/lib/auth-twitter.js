@@ -20,42 +20,42 @@ module.exports = {
         });
     },
     isAuthorized: function (session) {
-        var accessTokens = this.getUserTokens(session);
-        return accessTokens[0] && accessTokens[1];
+        var accessTokenPair = this.loadAccessTokenPair(session);
+        return accessTokenPair[0] && accessTokenPair[1];
     },
-    getUserTokens: function (session) {
+    loadAccessTokenPair: function (session) {
         return [
             session.twitter_access_token,
             session.twitter_access_token_secret
         ];
     },
-    setUserTokens: function (session, token, tokenSecret) {
+    saveAccessTokenPair: function (session, token, tokenSecret) {
         session.twitter_access_token = token;
         session.twitter_access_token_secret = tokenSecret;
     },
-    getRequestTokens: function (session) {
+    loadRequestTokenPair: function (session) {
         return [
             session.twitter_request_token,
             session.twitter_request_token_secret
         ];
     },
-    setRequestTokens: function (session, token, tokenSecret) {
+    saveRequestTokenPair: function (session, token, tokenSecret) {
         session.twitter_request_token = token;
         session.twitter_request_token_secret = tokenSecret;
     },
-    deleteUserTokens: function (session) {
+    clearAccessTokenPair: function (session) {
         delete session.twitter_access_token;
         delete session.twitter_access_token_secret;
     },
     getMe: function (session, callback) {
-        var accessTokens = this.getUserTokens(session);
+        var accessTokenPair = this.loadAccessTokenPair(session);
         var client = this.getClient();
 
         client.account(
             'verify_credentials',
             {},
-            accessTokens[0],
-            accessTokens[1],
+            accessTokenPair[0],
+            accessTokenPair[1],
             function(err, data, response) {
                 if (err) {
                     callback(err);
@@ -78,18 +78,18 @@ module.exports = {
                 callback(err);
                 return;
             }
-            instance.setRequestTokens(session, requestToken, requestTokenSecret);
+            instance.setRequestTokenPair(session, requestToken, requestTokenSecret);
             callback(null, requestToken);
         });
     },
     requestAccessToken: function (req, callback) {
         var session = req.session;
-        var requestTokens = this.getRequestTokens(session);
+        var requestTokenPair = this.getRequestTokenPair(session);
 
         var oauthToken = req.param('oauth_token');
         var oauthVerifier = req.param('oauth_verifier');
 
-        if (!oauthToken || requestTokens[0] != oauthToken) {
+        if (!oauthToken || requestTokenPair[0] != oauthToken) {
             callback('invalid request token.');
             return;
         }
@@ -99,9 +99,9 @@ module.exports = {
         }
 
         var client = this.getClient();
-        client.getAccessToken(
-            requestTokens[0],
-            requestTokens[1],
+        client.loadAccessToken(
+            requestTokenPair[0],
+            requestTokenPair[1],
             oauthVerifier,
             function (err, accessToken, accessTokenSecret, results) {
                 if (err) {

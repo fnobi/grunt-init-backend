@@ -15,16 +15,16 @@ module.exports = {
                 handleError(err.data, req, res);
                 return;
             }
-            soundcloud.setUserToken(req.session, accessToken);
+            soundcloud.saveAccessToken(req.session, accessToken);
             res.redirect('/');
         });
     },
     logout: function (req, res) {
-        soundcloud.deleteUserToken(req.session);
+        soundcloud.clearUserToken(req.session);
         res.redirect('/');
     },
     me: function (req, res) {
-        var accessToken = soundcloud.getUserToken(req.session);
+        var accessToken = soundcloud.loadAccessToken(req.session);
         if (!accessToken) {
             res.status(400);
             handleError('not authorized.', req, res);
@@ -32,7 +32,6 @@ module.exports = {
         }
         
         var client = soundcloud.getClientWithToken(accessToken);
-        
         client.get('/me', function (err, data) {
             if (err) {
                 handleError(err, req, res);
@@ -49,7 +48,7 @@ module.exports = {
             return;
         }
 
-        var accessToken = req.param('token') || soundcloud.getUserToken(req.session);
+        var accessToken = soundcloud.loadAccessToken(req.session);
         if (!accessToken) {
             res.status(400);
             handleError('not authorized', req, res);
@@ -57,9 +56,9 @@ module.exports = {
         }
 
         var client = soundcloud.getClientWithToken(accessToken);
-        var apiPath = ['tracks', trackId, 'stream'].join('/');
+        var apiPath = '/' + ['tracks', trackId, 'stream'].join('/');
 
-        client.get('/' + apiPath, function (err, stream) {
+        client.get(apiPath, function (err, stream) {
             if (err) {
                 handleError(err, req, res);
                 return;

@@ -19,12 +19,12 @@ module.exports = {
                 handleError(err.data, req, res);
                 return;
             }
-            twitter.setUserTokens(req.session, accessToken, accessTokenSecret);
+            twitter.saveAccessTokenPair(req.session, accessToken, accessTokenSecret);
             res.redirect('/');
         });
     },
     logout: function (req, res) {
-        twitter.deleteUserTokens(req.session);
+        twitter.clearAccessTokenPair(req.session);
         res.redirect('/');
     },
     me: function (req, res) {

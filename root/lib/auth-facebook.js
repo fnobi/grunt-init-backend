@@ -16,19 +16,19 @@ module.exports = {
         return fbAPI.user(token || null);
     },
     isAuthorized: function (session) {
-        return !!this.getUserToken(session);
+        return !!this.loadAccessToken(session);
     },
-    getUserToken: function (session) {
+    loadAccessToken: function (session) {
         return session.facebook_access_token;
     },
-    setUserToken: function (session, token) {
+    saveAccessToken: function (session, token) {
         session.facebook_access_token = token;
     },
-    deleteUserToken: function (session) {
+    clearAccessToken: function (session) {
         delete session.facebook_access_token;
     },
     getMe: function (req, callback) {
-        var token = this.getUserToken(req.session);
+        var token = this.loadAccessToken(req.session);
         var client = this.getClient(token);
         client.me.info(callback);
     },

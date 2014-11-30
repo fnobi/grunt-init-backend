@@ -12,12 +12,12 @@ module.exports = {
                 handleError(err.data, req, res);
                 return;
             }
-            facebook.setUserToken(req.session, accessToken);
+            facebook.saveAccessToken(req.session, accessToken);
             res.redirect('/');
         });
     },
     logout: function (req, res) {
-        facebook.deleteUserToken(req.session);
+        facebook.clearAccessToken(req.session);
         res.redirect('/');
     },
     me: function (req, res) {
