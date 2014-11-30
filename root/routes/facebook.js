@@ -21,7 +21,7 @@ module.exports = {
         res.redirect('/');
     },
     me: function (req, res) {
-        facebook.getMe(req, function (err, data) {
+        facebook.getMe(req.session, function (err, data) {
             if (err) {
                 res.status(500);
                 handleError(err.data, req, res);

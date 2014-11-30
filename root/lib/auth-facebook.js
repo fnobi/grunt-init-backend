@@ -27,8 +27,8 @@ module.exports = {
     clearAccessToken: function (session) {
         delete session.facebook_access_token;
     },
-    getMe: function (req, callback) {
-        var token = this.loadAccessToken(req.session);
+    getMe: function (session, callback) {
+        var token = this.loadAccessToken(session);
         var client = this.getClient(token);
         client.me.info(callback);
     },
