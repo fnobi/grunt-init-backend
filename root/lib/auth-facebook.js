@@ -15,6 +15,9 @@ module.exports = {
     getClient: function (token) {
         return fbAPI.user(token || null);
     },
+    isAuthorized: function (session) {
+        return !!this.getUserToken(session);
+    },
     getUserToken: function (session) {
         return session.facebook_access_token;
     },

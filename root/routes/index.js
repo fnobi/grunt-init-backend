@@ -10,13 +10,13 @@ module.exports = {
     index: function (req, res) {/*[ if (use_session) { ]*/
         var easyName = easy.getEasyName(req, res);/*[ if (use_auth_twitter) { ]*/
         var hasTwitterUser = twitter.isAuthorized(req.session);/*[ } ]*//*[ if (use_auth_facebook) { ]*/
-        var facebookToken = facebook.getUserToken(req.session);/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/
+        var hasFacebookUser = facebook.getUserToken(req.session);/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/
         var hasSoundcloudUser = soundcloud.isAuthorized(req.session);/*[ } ]*/
 
         res.render('index', {
             easy_name: easyName/*[ if (use_auth_twitter) { ]*/,
             has_twitter_user: hasTwitterUser/*[ } ]*//*[ if (use_auth_facebook) { ]*/,
-            is_facebook_user: !!facebookToken/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/,
+            is_facebook_user: hasFacebookUser/*[ } ]*//*[ if (use_auth_soundcloud) { ]*/,
             has_soundcloud_user: hasSoundcloudUser/*[ } ]*/
         });/*[ } else { ]*/
         res.render('index');/*[ } ]*/
