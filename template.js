@@ -117,6 +117,7 @@ exports.template = function (grunt, init, done) {
         }
         if (!props.use_session) {
             delete pkg.dependencies['connect-redis'];
+            init.escapeFiles('routes/easy.js', files);
         }
         if (!props.use_auth_twitter) {
             delete pkg.dependencies['node-twitter-api'];
