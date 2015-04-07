@@ -49,4 +49,16 @@ block content
           a(href="/soundcloud/logout") logout
       else
         li
-          a(href="/soundcloud/login") soundcloud login/*[ } ]*/
+          a(href="/soundcloud/login") soundcloud login/*[ } ]*//*[ if (use_auth_github) { ]*/
+    h2 github auth
+    ul
+      if has_github_user
+        li
+          span= 'hello, github user.'
+        li
+          a(href="/github/me") me
+        li
+          a(href="/github/logout") logout
+      else
+        li
+          a(href="/github/login") github login/*[ } ]*/

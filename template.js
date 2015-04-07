@@ -42,7 +42,7 @@ exports.template = function (grunt, init, done) {
         },
         {
             name: 'auth_list',
-            message: 'auth list [twitter|facebook|soundcloud]',
+            message: 'auth list [twitter|facebook|soundcloud|github]',
             default: ''
         },
         {
@@ -68,10 +68,12 @@ exports.template = function (grunt, init, done) {
         props.use_auth_twitter = /twitter/.test(props.auth_list);
         props.use_auth_facebook = /facebook/.test(props.auth_list);
         props.use_auth_soundcloud = /soundcloud/.test(props.auth_list);
+        props.use_auth_github = /github/.test(props.auth_list);
         props.use_session = (props.use_session == 'Y')
             || props.use_auth_twitter
             || props.use_auth_facebook
-            || props.use_auth_soundcloud;
+            || props.use_auth_soundcloud
+            || props.use_auth_github;
         props.use_socketio = (props.use_socketio == 'Y') ? true : false;
         props.main_model_instance = props.main_model.toLowerCase();
         props.template_name = 'backend';
@@ -102,7 +104,8 @@ exports.template = function (grunt, init, done) {
                 "connect-redis": "~1.4.7",
                 "node-twitter-api": "^1.5.0",
                 "facebook-api": "^0.1.2",
-                "soundcloud-node": "0.0.8"
+                "soundcloud-node": "0.0.8",
+                "github-oauth-token": "0.0.2"
             }
         };
 
@@ -133,6 +136,11 @@ exports.template = function (grunt, init, done) {
             delete pkg.dependencies['soundcloud-node'];
             init.escapeFiles('lib/auth-soundcloud.js', files);
             init.escapeFiles('routes/soundcloud.js', files);
+        }
+        if (!props.use_auth_github) {
+            delete pkg.dependencies['github-oauth-token'];
+            init.escapeFiles('lib/auth-github.js', files);
+            init.escapeFiles('routes/github.js', files);
         }
         if (!props.use_socketio) {
             delete pkg.dependencies['socket.io'];

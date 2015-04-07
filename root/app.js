@@ -84,7 +84,12 @@ app.get('/soundcloud/login', routes.soundcloud.login);
 app.get('/soundcloud/logout', routes.soundcloud.logout);
 app.get('/soundcloud/callback', routes.soundcloud.loginCallback);
 app.get('/soundcloud/me', routes.soundcloud.me);
-app.get('/soundcloud/stream/:track_id', routes.soundcloud.stream);/*[ } ]*/
+app.get('/soundcloud/stream/:track_id', routes.soundcloud.stream);/*[ } ]*//*[ if (use_auth_github) { ]*/
+
+app.get('/github/login', routes.github.login);
+app.get('/github/logout', routes.github.logout);
+app.get('/github/callback', routes.github.loginCallback);
+app.get('/github/me', routes.github.me);/*[ } ]*/
 
 
 module.exports = app;
